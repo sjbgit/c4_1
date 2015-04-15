@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.demo">
+<head>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+hey
+</body>
+<script>
+    (function() {
+        var socket = io.connect();
+
+        socket.on('connect', function () {
+            console.log('connected');
+            socket.emit('join', {room: 'global'});
+        });
+
+        socket.on('roomJoined', function (data) {
+            console.log('roomJoined: ' + data.message);
+        });
+
+        socket.on('message', function (data) {
+            console.log('message: ' + data.message);
+        });
+
+    })();
+</script>
+</html>
