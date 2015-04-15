@@ -49,6 +49,18 @@ router.get('/api/notify', function (req, res) {
     res.json({message: 'test message from server'}); // return all todos in JSON format
 });
 
+router.post('/api/notify', function (req, res) {
+
+    var room = req.body.room;
+    var message = req.body.message;
+
+    console.log()
+
+    io.sockets.in(room).emit('message', { message: message });
+
+    res.json({message: 'test message from server'}); // return all todos in JSON format
+});
+
 //var rooms = {};
 
 io.sockets.on('connection', function(socket) {
