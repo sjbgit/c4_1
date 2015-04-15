@@ -63,22 +63,38 @@ router.post('/api/notify', function (req, res) {
 
 //var rooms = {};
 
+//http://www.joezimjs.com/javascript/plugging-into-socket-io-advanced/
+//using
+//http://stackoverflow.com/questions/15909821/socket-io-join-leave
+//maybe
+//http://stackoverflow.com/questions/6873607/socket-io-rooms-difference-between-broadcast-to-and-sockets-in?rq=1
+
+io.sockets.on('connection', function(socket) {
+    socket.on('subscribe', function(data) {
+        socket.join(data.room);
+        console.log('client subscribed to room:' + data.room);
+        socket.emit('subscribed', {message: 'you have subscribed to room: ' + data.room});
+    })
+    socket.on('unsubscribe', function(data) {
+        socket.leave(data.room);
+        console.log('client subscribed to room:' + data.room);
+    })
+});
+
+//works
+/*
 io.sockets.on('connection', function(socket) {
     socket.on('join', function(data) {
         socket.join(data.room);
 
         console.log('client joined room:' + data.room);
-        /*
-        rooms[data.room] = {
-            socket: socket
-        };
-        */
+
 
         socket.emit('roomJoined', {message: 'you have joined room: ' + data.room});
 
     });
 });
-
+*/
 
 
 server.listen(process.env.PORT || 4000, process.env.IP || "0.0.0.0", function () {

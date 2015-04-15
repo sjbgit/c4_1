@@ -14,11 +14,12 @@ hey
 
         socket.on('connect', function () {
             console.log('connected');
-            socket.emit('join', {room: 'globalxxx'});
+            //socket.emit('join', {room: 'globalxxx'});
+            socket.emit("subscribe", { room: "global" });
         });
 
-        socket.on('roomJoined', function (data) {
-            console.log('roomJoined: ' + data.message);
+        socket.on('subscribed', function (data) {
+            console.log('subscribed: ' + data.message);
         });
 
         socket.on('message', function (data) {
