@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="AngularApp">
+<head>
+    <title>Start Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/angular-1.4.0-beta.6.js"></script>
+    <script src="js/router.es5.js"></script>
+</head>
+<body ng-controller="MainController">
+
+<h1>{{title}}</h1>
+<div ng-viewport="FirstViewPort"></div>
+<div ng-viewport="SecondViewPort"></div>
+
+
+<script>
+    var module = angular.module("AngularApp", ["ngNewRouter"]);
+    module.controller("MainController", function($scope, $router){
+        $scope.title = "This is demo of application";
+
+        var socket = io.connect();
+
+        socket.on('connect', function () {
+            console.log('connected');
+            //socket.emit('join', {room: 'globalxxx'});
+            socket.emit("subscribe", { room: "global" });
+        });
+
+        socket.on('subscribed', function (data) {
+            console.log('subscribed: ' + data.message);
+        });
+
+        socket.on('message', function (data) {
+            console.log('message: ' + data.message);
+        });
+
+
+    });
+</script>
+</body>
+</html>
+</html>
