@@ -69,10 +69,14 @@ router.post('/api/notify', function (req, res) {
 //http://stackoverflow.com/questions/15909821/socket-io-join-leave
 //maybe
 //http://stackoverflow.com/questions/6873607/socket-io-rooms-difference-between-broadcast-to-and-sockets-in?rq=1
+//get client ids in a room
+//http://stackoverflow.com/questions/23930388/joining-same-room-more-then-once-and-clients-in-a-room?rq=1
+//https://coderwall.com/p/ekrcyw/socket-io-managing-single-user-multi-connections
 
 io.sockets.on('connection', function(socket) {
     socket.on('subscribe', function(data) {
         socket.join(data.room);
+        //console.log(socket);
         console.log('client subscribed to room:' + data.room);
         socket.emit('subscribed', {message: 'you have subscribed to room: ' + data.room});
     })
