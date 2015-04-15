@@ -63,6 +63,7 @@ router.post('/api/notify', function (req, res) {
 
 //var rooms = {};
 
+//EXCELLENT
 //http://www.joezimjs.com/javascript/plugging-into-socket-io-advanced/
 //using
 //http://stackoverflow.com/questions/15909821/socket-io-join-leave
