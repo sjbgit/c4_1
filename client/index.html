@@ -26,6 +26,22 @@ hey
             console.log('message: ' + data.message);
         });
 
+
+        var globalNotification = io.connect('http://localhost:4000/globalNotification');
+
+        globalNotification.on('connect', function () {
+            console.log('globalNotification connect');
+        });
+
+        globalNotification.on('globalNotificationSubscribed', function (data) {
+            console.log('globalNotificationSubscribed: ' + data.message);
+        });
+
+        globalNotification.on('globalMessage', function (data) {
+            console.log('globalMessage: ' + data.message);
+        });
+
+
     })();
 </script>
 </html>

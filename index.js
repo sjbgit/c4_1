@@ -42,6 +42,30 @@ router.all('*', function (req, res, next) {
     next();
 });
 
+var globalNotification = io
+    .of('/globalNotification')
+    .on('connection', function (socket) {
+        // Send message to client like usual
+        socket.emit('globalNotificationSubscribed', { message: 'you have subscribed to globalNotification' });
+        // Broadcast message to everyone in this namespace
+        //globalNamespace.emit('a message', { everyone: 'in', '/chat': 'will get' });
+    });
+
+
+router.post('/api/global', function (req, res) {
+
+    var message = req.body.message;
+
+    console.log('sending global message: ' + message);
+
+    globalNotification.emit('globalMessage', { message: message });
+
+    //io.sockets.in(room).emit('message', { message: message });
+
+    res.json({message: 'test message from server - GLOBAL'}); // return all todos in JSON format
+});
+
+
 /*
 router.get('/api/notify', function (req, res) {
 
