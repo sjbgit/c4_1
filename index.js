@@ -42,19 +42,21 @@ router.all('*', function (req, res, next) {
     next();
 });
 
+/*
 router.get('/api/notify', function (req, res) {
 
     io.sockets.in('global').emit('message', { message: 'tasty' });
 
     res.json({message: 'test message from server'}); // return all todos in JSON format
 });
+*/
 
 router.post('/api/notify', function (req, res) {
 
     var room = req.body.room;
     var message = req.body.message;
 
-    console.log()
+    console.log('sending messsage: ' + message + ' to room: ' + room);
 
     io.sockets.in(room).emit('message', { message: message });
 
