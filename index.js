@@ -26,6 +26,15 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.static(path.resolve(__dirname, 'client')));
 
 
+
+/*
+//run every second
+var interval = setInterval(function(str1, str2) {
+    console.log((new Date()) + ' ' + str1 + " " + str2);
+}, 1000, "Hello.", "How are you?");
+
+clearInterval(interval);
+*/
 /*
 router.configure(function () {
     router.use(express.static(path.resolve(__dirname, 'client')));
@@ -53,6 +62,8 @@ var globalNotification = io
 
 
 router.post('/api/global', function (req, res) {
+
+    //console.log(req);
 
     var message = req.body.message;
 
